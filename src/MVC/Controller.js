@@ -3,17 +3,19 @@ import OBJ from "./obj";
 import Model from "./Model";
 // import View from "./View";
 
-// let initial_item;
-// function fetch(url, type, data) {
-//     View.show_loading();
-//     var item_no = url.replace(/.*\/\/[^\/]+\//, '');
-//     url = isNaN(item_no) ? url : "/api/item/" + item_no + "/";
-//     Model.fetch(url, type, data);
-// }
 
-function App() {
-  return <OBJ />
-  ;
+const Controller = {
+  running: [],
+  Show_root: function() {
+    return Controller.running.find(obj => obj.show).name;
+  },
+  add_to_running: function(obj) {
+    Controller.running.push(obj)
+  },
+  test: function(id) {
+    Controller.running.map(obj => obj.show = false)
+    Controller.running.find(obj => obj.id == id).show = true;
+  }
 }
 
-export default App;
+export default Controller;
