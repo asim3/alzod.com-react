@@ -1,8 +1,47 @@
-import React from 'react';
+// ==========================================XXX
+
+window.onerror = function (message, url, line, column) {
+    var e = "message=" + message;
+    e += "&url=" + url;
+    e += "&line=" + line;
+    e += "&column=" + column;
+    var request = new XMLHttpRequest();
+    request.open("GET", "/?err=" + e, true);
+    request.send(e);
+    return false;
+};
+
+
+
+
+
+var view_home = {id: "view_home", className: "view_root", append: []};
+var logo_div = { className: "logo", innerHTML: '<svg viewBox="0 0 100 100" style="width: 3rem;height: 3rem;" height="100" width="100"><circle cx="50" cy="50" r="40" fill="green" /></svg>'}
+logo_div.append = {element: "span", innerHTML: "Alzod"};
+view_home.append.push(logo_div);
+
+var search_form = {
+    element:"form",
+    className:"search_box",
+    action:"/api/item/",
+    method:"POST",
+    append: [
+        {
+            element:"input",
+            type:"textbox",
+            name:"type",
+            placeholder: "type"
+        },
+        {
+            element:"input",
+            type:"submit",
+            value:"Search"
+        }
+    ]
+};
 
 var icons_root = {
     className: "icons_root", 
-    innerHTML: "aaaa",
     append: [
     {   
         element:"a", 
@@ -13,7 +52,7 @@ var icons_root = {
             innerHTML: "المفضلة"
         },
         onclick: function(){
-            console.log("111");return false;
+            alzod.Controller.fetch(this.href);return false;
         }
     },
     {   
@@ -25,7 +64,7 @@ var icons_root = {
             innerHTML: "السلة"
         },
         onclick: function(){
-            console.log("222");return false;
+            alzod.Controller.fetch(this.href);return false;
         }
     },
     {   
@@ -37,7 +76,7 @@ var icons_root = {
             innerHTML: "تسجيل"
         },
         onclick: function(){
-            console.log("333");return false;
+            alzod.Controller.fetch(this.href);return false;
         }
     },
     {   
@@ -49,7 +88,7 @@ var icons_root = {
             innerHTML: "Logout"
         },
         onclick: function(){
-            console.log("444");return false;
+            alzod.Controller.fetch(this.href);return false;
         }
     },
     {   
@@ -61,7 +100,7 @@ var icons_root = {
             innerHTML: "إضافة"
         },
         onclick: function(){
-            console.log("555");return false;
+            alzod.Controller.fetch(this.href);return false;
         }
     },
     {   
@@ -73,7 +112,7 @@ var icons_root = {
             innerHTML: "/login/"
         },
         onclick: function(){
-            console.log("666");return false;
+            alzod.Controller.fetch(this.href);return false;
         }
     },
     {   
@@ -85,7 +124,7 @@ var icons_root = {
             innerHTML: "/logout"
         },
         onclick: function(){
-            console.log("777");return false;
+            alzod.Controller.fetch(this.href);return false;
         }
     },
     {   
@@ -98,7 +137,7 @@ var icons_root = {
             innerHTML: "error: login/ "
         },
         onclick: function(){
-            console.log("888");return false;
+            alzod.Controller.fetch(this.href);return false;
         }
     },
     {   
@@ -111,12 +150,11 @@ var icons_root = {
             innerHTML: "https json place holder "
         },
         onclick: function(){
-            console.log("999");return false;
+            alzod.Controller.fetch(this.href);return false;
         }
     }
 ]};
 
-
-export default function() {
-    return <h1>H1</h1>
-};
+view_home.append.push(search_form);
+view_home.append.push(icons_root);
+document.getElementById('all_views').append_by_obj(view_home);
