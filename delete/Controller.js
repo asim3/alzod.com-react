@@ -149,4 +149,9 @@ if(Controller.initial_item) {
 else { View.show('view_home'); }
 
 
-export default Controller;
+export default function(url) {
+    Model(url)
+      .then(obj => Templates(obj))
+      .then(view => Controller.update(view))
+
+};

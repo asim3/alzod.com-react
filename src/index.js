@@ -1,16 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Controller from "./MVC/Controller";
+import Controller from "./alzod/Controller";
 import * as serviceWorker from './serviceWorker';
 
-
-// function App() { 
-//     console.log(Controller.running)    
-//     return Controller.render()
-// }
-
-ReactDOM.render(<Controller.Running />, document.getElementById('root'));
+ReactDOM.render(<Controller />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
