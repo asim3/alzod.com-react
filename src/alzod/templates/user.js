@@ -1,10 +1,12 @@
 import React from 'react';
-import { fetch } from "../Controller";
+import { get } from "../Controller";
 
-export default function(obj) {
+export default function User(obj) {
   return (
-    <div onClick={fetch("./home")}>
-      My user
+    <div>
+      <hr />
+      <div>{obj.title}</div>
+      <div>{obj.body}</div>
     </div>
   );
 };

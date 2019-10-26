@@ -3,9 +3,6 @@ import Model from "./Model";
 import View from "./View";
 
 const Controller = {
-  initial_item: null,
-
-
   fetch: function(url, type, data) {
     View.show_loading();
     var item_no = url.replace(/.*\/\/[^\/]+\//, '');
@@ -13,24 +10,6 @@ const Controller = {
     Model.fetch(url, type, data);
   },
 
-
-  handle_response: function(status, url, request, form) {
-    if(1 < status) {
-        var content = "";
-        try { 
-            content = JSON.parse(request.responseText);
-            content.type = content.type || "test";
-            content.url = url;
-            content.url_path = url.replace(/.*\/\/[^\/]+/, '')
-            content.url_clean = content.url_path
-                .replace(/(?:^\/|\/$)/g, "")
-                .replace("api/item/", "");
-        } 
-        catch(error) { View.show_error('response is not JSON!'); }
-        Controller.handle_JSON_response(status, content, form);
-    } 
-    else { View.show_error('Internet connection is offline!'); }
-  },
 
 
   handle_fetch_script: function(content) { 
@@ -142,11 +121,7 @@ if(!isNaN(initial_url) && 0 < initial_url.length) {
 
 Controller.fetch("/api/auth/");
 
-if(Controller.initial_item) {
-    var args = Controller.initial_item;
-    Controller.handle_response(args[0], args[1], args[2]);
-}
-else { View.show('view_home'); }
+View.show('view_home');
 
 
 export default function(url) {

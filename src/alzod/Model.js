@@ -1,8 +1,93 @@
-export default function(url) {
-  return new Promise(function(resolver, reject, notify) {
-    console.log(`Model url: ${url}`)
-    
-    resolver({type: url})
+function post(kwargs, next_chain) {
+  const request = new XMLHttpRequest();
+  request.onreadystatechange = function() {
+    if(this.readyState === 4) {
+      kwargs.request = request;
+      next_chain(kwargs);
+    }
+  };
+  request.open(kwargs.action, kwargs.url, true);
+  // request.setRequestHeader(
+  //   "Access-Control-Allow-Origin", "https://jsonplaceholder.typicode.com/"
+  // );
+  // request.setRequestHeader(
+  //   "Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+  // );
+  if(kwargs.data === undefined) { request.send(); }
+  // else {
+  //     var Content_type = 'application/x-www-form-urlencoded';
+  //     var post_data = data.serialize();
+  //     if(typeof post_data === "object" && post_data.constructor === Object) {
+  //         Content_type = 'application/json; charset=utf-8';
+  //         post_data = JSON.stringify(post_data);
+  //     }
+  //     if("get_cookie" in Model) {
+  //         request.setRequestHeader(
+  //             'X-CSRFToken', Model.get_cookie("csrftoken"));
+  //     }
+  //     request.setRequestHeader('Content-type', Content_type);
+  //     request.send(post_data);
+  // }
+};
 
-  });
+
+
+function handle_response(kwargs) {
+  if(1 < kwargs.request.status) {
+    try {
+      const content = JSON.parse(kwargs.request.responseText);
+      content.type = content.type || "./user";
+        // content.url = url;
+        // content.url_path = url.replace(/.*\/\/[^\/]+/, '')
+        // content.url_clean = content.url_path
+        //     .replace(/(?:^\/|\/$)/g, "")
+        //     .replace("api/item/", "");
+        return content;
+    }
+    catch(error) { return show_error('response is not JSON!'); }
+    // Controller.handle_JSON_response(status, content, form);
+  }
+  else { return show_error('Internet connection is offline!'); }
+};
+
+
+function show_error(text) {
+  return {type: "error", text: text}
+}
+
+// function get_cookie(name) {
+//   // delete this
+//   var cookieValue = null;
+//   if (document.cookie && document.cookie !== '') {
+//       var cookies = document.cookie.split(';');
+//       for (var i = 0; i < cookies.length; i++) {
+//           var cookie = cookies[i].trim();
+//           // Does this cookie string begin with the name we want?
+//           if (cookie.substring(0, name.length + 1) === (name + '=')) {
+//               cookieValue = decodeURIComponent(
+//                   cookie.substring(name.length + 1)
+//               );
+//               break;
+//           }
+//       }
+//   }
+//   return cookieValue;
+// }
+
+
+
+
+export default function Model(kwargs, next_chain) {
+  kwargs.action = (kwargs.action || "GET").toUpperCase();
+  console.log(`${kwargs.action}: ${kwargs.url}`);
+
+
+  if(kwargs.url === "./home") {
+    next_chain({type: kwargs.url})
+  }
+  else {
+    post(kwargs, function (kwargs) {
+      next_chain(handle_response(kwargs))
+    })
+  }
 };
