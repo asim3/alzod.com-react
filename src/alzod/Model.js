@@ -7,12 +7,6 @@ function post(kwargs, next_chain) {
     }
   };
   request.open(kwargs.action, kwargs.url, true);
-  // request.setRequestHeader(
-  //   "Access-Control-Allow-Origin", "https://jsonplaceholder.typicode.com/"
-  // );
-  // request.setRequestHeader(
-  //   "Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-  // );
   if(kwargs.data === undefined) { request.send(); }
   // else {
   //     var Content_type = 'application/x-www-form-urlencoded';

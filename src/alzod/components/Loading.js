@@ -1,6 +1,6 @@
 import React from 'react';
-
+import { Div , Text } from "./alzod"
 
 export default function Loading() {
-  return <div>LOADDING</div>
+  return <Div>LOADDING</Div>
 };

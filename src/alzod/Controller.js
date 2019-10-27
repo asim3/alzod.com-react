@@ -1,41 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import Model from "./Model";
-import Template from "./Template";
+import App from "./components/App"
 import Loading from "./components/Loading";
 
 
 
-const running = [];
+let running = [];
 let auto_index = 100;
+
 let set_run_index = function() {
   console.log("set_run_index");
 };
+
 function fetch(url, action, data) {
   set_run_index("loading");
   const kwargs = { url: url, action: action, data: data };
   Model(kwargs, function(model_obj) {
-    model_obj.index = auto_index++;
-    Template(model_obj, function(view) {
-      add(view);
-    });
+    add(model_obj);
   });
 }
 
-function add(view) {
-  running.push(view);
+function add(model_obj) {
+  model_obj.index = auto_index++;
+  running.push({
+    index: model_obj.index,
+    model: model_obj,
+    App: <App key={model_obj.index} model_obj={model_obj} />
+  });
   
   setTimeout(x => {
-    set_run_index(view.index)
+  set_run_index(model_obj.index)
   },500);
 }
 
 function remove(index) {
-  console.error("removing : ",index)
-  const arr_index = running.find(function(obj) {
-    return obj.index === index;
-  }).index
-  running.splice(arr_index, 1)
-  set_run_index(100)
+  if(100 < index) {
+    running = running.filter(obj => obj.index !== index)
+    const last_index = running[running.length - 1].index
+    console.log("you are at ",last_index)
+    set_run_index(last_index)
+  }
+  else { console.log("you are at home!"); }
 }
 
 // =====================================================
@@ -54,15 +59,14 @@ export default function Controller() {
 
   set_run_index = setIndex
 
-  const run = running.find(function(obj) {
-    console.error("run_index: ",run_index)
-    return obj.index === run_index;
-  })
+  const run = running.find(obj => obj.index === run_index)
 
-  console.log("re rendering", running);
+  console.log(`%crun_index === ${run_index}`,"color: red;")
+  
 
-  if(run && run.view) { return run.view }
-  else if(run_index === "init") { return <div>init</div> }
+  if(run_index === "init") { return <div>init</div> }
+  else if(run && run.App) { return run.App }
+  else if(!isNaN(run_index)) { return <div>not found!</div> }
   return <Loading />
 };
 
