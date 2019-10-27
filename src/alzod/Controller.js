@@ -7,33 +7,36 @@ import Loading from "./components/Loading";
 
 const running = [];
 let auto_index = 100;
-const oooo = { set_run_index: function() {
+let set_run_index = function() {
   console.log("set_run_index");
-}};
+};
 function fetch(url, action, data) {
-  oooo.set_run_index("loading");
+  set_run_index("loading");
   const kwargs = { url: url, action: action, data: data };
   Model(kwargs, function(model_obj) {
+    model_obj.index = auto_index++;
     Template(model_obj, function(view) {
       add(view);
-      console.log("fetching", running);
     });
   });
 }
 
 function add(view) {
-  const index = auto_index++;
-  running.push({index: index, view: view});
+  running.push(view);
   
   setTimeout(x => {
-    oooo.set_run_index("index")
+    set_run_index(view.index)
   },500);
 }
 
-setTimeout(() => {
-      console.log("loaddddd", oooo.set_run_index);
-      oooo.set_run_index("loadddd")
-},3000);
+function remove(index) {
+  console.error("removing : ",index)
+  const arr_index = running.find(function(obj) {
+    return obj.index === index;
+  }).index
+  running.splice(arr_index, 1)
+  set_run_index(100)
+}
 
 // =====================================================
 
@@ -41,18 +44,18 @@ setTimeout(() => {
 export default function Controller() {
   const [run_index, setIndex] = useState("init");
 
-  // useEffect(function() {
-  //   if(run_index === "init") {
-  //     setTimeout(x =>
-  //       fetch("./home")
-  //     ,500);
-  //   }
-  // });
+  useEffect(function() {
+    if(run_index === "init") {
+      setTimeout(x =>
+        fetch("./home")
+      , 500);
+    }
+  });
 
-  oooo.set_run_index = setIndex
+  set_run_index = setIndex
 
   const run = running.find(function(obj) {
-    console.log("obj")
+    console.error("run_index: ",run_index)
     return obj.index === run_index;
   })
 
@@ -74,5 +77,12 @@ export function get(url) {
 export function post(data) {
   return function() {
     fetch(data.url, "post", data);
+  };
+};
+
+
+export function remove_func(index) {
+  return function() {
+    remove(index);
   };
 };

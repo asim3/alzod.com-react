@@ -35,14 +35,14 @@ function post(kwargs, next_chain) {
 function handle_response(kwargs) {
   if(1 < kwargs.request.status) {
     try {
-      const content = JSON.parse(kwargs.request.responseText);
-      content.type = content.type || "./user";
-        // content.url = url;
-        // content.url_path = url.replace(/.*\/\/[^\/]+/, '')
-        // content.url_clean = content.url_path
-        //     .replace(/(?:^\/|\/$)/g, "")
-        //     .replace("api/item/", "");
-        return content;
+      const json_obj = JSON.parse(kwargs.request.responseText);
+      json_obj.type = json_obj.type || "./user";
+      json_obj.url = kwargs.url;
+      json_obj.url_path = kwargs.url.replace(/.*\/\/[^\/]+/, '')
+      json_obj.url_clean = json_obj.url_path
+          .replace(/(?:^\/|\/$)/g, "")
+          .replace("api/item/", "");
+      return json_obj;
     }
     catch(error) { return show_error('response is not JSON!'); }
     // Controller.handle_JSON_response(status, content, form);

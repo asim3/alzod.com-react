@@ -1,10 +1,9 @@
 import React from 'react';
-import { get } from "../Controller";
+import { get, remove_func } from "../Controller";
 
 export default function User(obj) {
   return (
     <div>
-      <hr />
       <div>{obj.title}</div>
       <div>{obj.body}</div>
     </div>
