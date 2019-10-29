@@ -6,7 +6,49 @@ export default function User(obj) {
   return (
     <Div>
       <H3>{obj.id}</H3>
-      <Div>{obj.body}</Div>
+      <Div>
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}{obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      {obj.body}
+      </Div>
     </Div>
   );
 };
