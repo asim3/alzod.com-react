@@ -1,9 +1,9 @@
-function post(kwargs, next_chain) {
+function post(kwargs, next_func) {
   const request = new XMLHttpRequest();
   request.onreadystatechange = function() {
     if(this.readyState === 4) {
       kwargs.request = request;
-      next_chain(kwargs);
+      next_func(kwargs);
     }
   };
   request.open(kwargs.action, kwargs.url, true);
@@ -71,17 +71,17 @@ function show_error(text) {
 
 
 
-export default function Model(kwargs, next_chain) {
+export default function Model(kwargs, next_func) {
   kwargs.action = (kwargs.action || "GET").toUpperCase();
   console.log(`${kwargs.action}: ${kwargs.url}`);
 
 
   if(kwargs.url === "./home") {
-    next_chain({type: kwargs.url})
+    next_func({type: kwargs.url})
   }
   else {
     post(kwargs, function (kwargs) {
-      next_chain(handle_response(kwargs))
+      next_func(handle_response(kwargs))
     })
   }
 };

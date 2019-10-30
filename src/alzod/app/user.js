@@ -1,53 +1,52 @@
 import React from 'react';
-import { get, remove_func } from "../Controller";
 import { Div , Text, H3 } from "../components/alzod"
 
-export default function User(obj) {
+export default function User(model_obj, func_obj) {
   return (
     <Div>
-      <H3>{obj.id}</H3>
+      <H3>{model_obj.id}</H3>
       <Div>
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}{obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
-      {obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}{model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
+      {model_obj.body}
       </Div>
     </Div>
   );
